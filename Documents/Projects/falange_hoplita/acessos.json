@@ -1,0 +1,124 @@
+{
+  "ti": {
+    "username": "ti",
+    "password": "ti123",
+    "displayName": "TI - Administrador",
+    "role": "admin",
+    "apps": [
+      {
+        "name": "HeidiSQL",
+        "path": "C:\\Program Files\\HeidiSQL\\heidisql.exe",
+        "icon": "🗄️"
+      },
+      {
+        "name": "Gerenciador de Tarefas",
+        "path": "C:\\Windows\\System32\\taskmgr.exe",
+        "icon": "⚙️"
+      },
+      {
+        "name": "Terminal",
+        "path": "C:\\Windows\\System32\\cmd.exe",
+        "icon": "💻"
+      },
+      {
+        "name": "Painel de Controle",
+        "path": "C:\\Windows\\System32\\control.exe",
+        "icon": "🎛️"
+      },
+      {
+        "name": "Explorer",
+        "path": "C:\\Windows\\explorer.exe",
+        "icon": "📁"
+      },
+      {
+        "name": "Bloco de Notas",
+        "path": "C:\\Windows\\System32\\notepad.exe",
+        "icon": "📝"
+      }
+    ]
+  },
+  "opSerasa": {
+    "username": "opSerasa",
+    "password":"op123",
+    "displayName": "Operador Serasa",
+    "role": "operator",
+    "apps": [
+      {
+        "name": "Sistema Serasa",
+        "path": "C:\\Program Files\\Serasa\\serasa.exe",
+        "icon": "🏢"
+      },
+      {
+        "name": "Consulta Serasa",
+        "path": "C:\\Program Files\\Serasa\\consulta.exe",
+        "icon": "🔍"
+      },
+      {
+        "name": "Relatórios Serasa",
+        "path": "C:\\Program Files\\Serasa\\relatorios.exe",
+        "icon": "📊"
+      }
+    ]
+  },
+  "opCagece": {
+    "username": "opCagece",
+    "password": "op123",
+    "displayName": "Operador Cagece",
+    "role": "operator",
+    "apps": [
+      {
+        "name": "Sistema Cagece",
+        "path": "C:\\Program Files\\Cagece\\cagece.exe",
+        "icon": "💧"
+      },
+      {
+        "name": "Gestão de Contas",
+        "path": "C:\\Program Files\\Cagece\\contas.exe",
+        "icon": "🧾"
+      },
+      {
+        "name": "Leitura de Hidrômetros",
+        "path": "C:\\Program Files\\Cagece\\hidrometros.exe",
+        "icon": "📏"
+      }
+    ]
+  },
+  "opScgas": {
+    "username": "scgas",
+    "password":"scgas",
+    "displayName": "Operador Scgás",
+    "role": "operator",
+    "apps": [
+      {
+        "name": "Microsip",
+        "path": "C:\\Users\\SCGAS02\\AppData\\Local\\MicroSIP\\microsip.exe",
+        "icon": "📞"
+      },
+      {
+        "name": "Google",
+        "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "icon": "🌐"
+      },
+      {
+        "name": "Simple Sticky Notes",
+        "path": "C:\\Program Files (x86)\\Simnet\\Simple Sticky Notes\\ssn.exe",
+        "icon": "📝"
+      },
+      {
+        "name": "FortClient Vpn",
+        "path": "C:\\Program Files\\Fortinet\\FortiClient\\FortiClient.exe",
+        "icon": "🔒"
+      },
+      {
+        "name": "Excel",
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.exe",
+        "icon": "📊"
+      },
+      {
+        "name": "Word",
+        "path": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.exe",
+        "icon": "📝"
+      }
+    ]
+  }
+}

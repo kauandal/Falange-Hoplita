@@ -1,0 +1,45 @@
+{
+  "name": "falange-hoplita",
+  "version": "1.0.0",
+  "description": "Tela de Ferro - Sistema Kiosk",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js",
+    "build-exe": "electron-builder --win --x64",
+    "dist": "npm run build && npm run build-exe"
+  },
+  "keywords": [
+    "electron",
+    "kiosk",
+    "login"
+  ],
+  "author": "Falange Hoplita",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^22.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.falange.hoplita",
+    "productName": "Tela de Ferro",
+    "directories": {
+      "output": "dist-exe"
+    },
+    "files": [
+      "main.js",
+      "login.html",
+      "index.html",
+      "renderer.js",
+      "style.css",
+      "package.json",
+      "ITS.png",
+      "acessos.json"
+    ],
+    "win": {
+      "target": "zip",
+      "icon": "icon.ico"
+    }
+  }
+}
