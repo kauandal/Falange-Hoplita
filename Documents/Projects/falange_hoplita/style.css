@@ -7,7 +7,28 @@ body {
   flex-direction: column;
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+}
+
+:root {
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.12);
+  --text-muted: rgba(255, 255, 255, 0.75);
+  --shadow-lg: 0 18px 60px rgba(0, 0, 0, 0.42);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.25);
+  --focus: rgba(255, 107, 53, 0.55);
+}
+
+body.dark {
+  background: linear-gradient(135deg, #1e2936 0%, #2a384f 50%, #1e2936 100%);
+}
+
+body.light {
+  background: linear-gradient(135deg, #e8f1ff 0%, #dbeafe 50%, #f0f6ff 100%);
 }
 
 /* Media queries para responsividade */
@@ -16,58 +37,51 @@ body {
     height: 70px;
     padding: 0 15px;
   }
-  
+
   main {
     padding-top: 70px;
     padding-left: 20px;
     gap: 30px;
   }
-  
+
   .content {
     padding: 25px;
     max-width: 100%;
     margin: 0 10px;
   }
-  
+
   .apps-grid {
     grid-template-columns: 1fr;
     max-width: 100%;
     gap: 15px;
   }
-  
+
   .app-button {
     min-height: 70px;
     padding: 15px;
   }
-  
+
   .app-icon {
     font-size: 24px;
     margin-right: 12px;
   }
-  
+
   .app-name {
     font-size: 14px;
   }
-  
+
   #user-type {
     font-size: 24px;
     margin-bottom: 20px;
   }
-  
+
   .horario {
     font-size: 14px;
     padding: 6px 12px;
   }
-  
+
   .main-logo-img {
     width: 200px;
-  }
-  
-  .logout-btn {
-    bottom: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    font-size: 12px;
   }
 }
 
@@ -76,60 +90,53 @@ body {
     height: 60px;
     padding: 0 10px;
   }
-  
+
   main {
     padding-top: 60px;
     padding-left: 15px;
   }
-  
+
   .content {
     padding: 20px;
   }
-  
+
   .apps-grid {
     grid-template-columns: 1fr;
     max-width: 100%;
     gap: 15px;
   }
-  
+
   .app-button {
     min-height: 60px;
     padding: 12px;
   }
-  
+
   .app-icon {
     font-size: 20px;
     margin-right: 10px;
   }
-  
+
   .app-name {
     font-size: 13px;
   }
-  
+
   #user-type {
     font-size: 20px;
   }
-  
+
   .main-logo-img {
     width: 150px;
     opacity: 0.1;
-  }
-  
-  .logout-btn {
-    bottom: 15px;
-    right: 15px;
-    padding: 10px 16px;
-    font-size: 11px;
   }
 }
 
 .content {
   padding: 40px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -154,7 +161,7 @@ body {
 header {
   background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
   width: 100%;
-  height: 80px;
+  height: 60px;
   top: 0;
   position: fixed;
   padding: 0 20px;
@@ -162,10 +169,415 @@ header {
   justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 8px 26px rgba(255, 107, 53, 0.28);
   z-index: 1000;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Taskbar Layout */
+.taskbar-left,
+.taskbar-center,
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.taskbar-center {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 20px;
+}
+
+.taskbar-right {
+  gap: 10px;
+}
+
+/* Taskbar Buttons */
+.taskbar-btn {
+  background: var(--surface-strong);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.taskbar-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.taskbar-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.taskbar-btn:active {
+  transform: translateY(0);
+}
+
+.taskbar-icon {
+  font-size: 18px;
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 10px;
+  min-width: 16px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.taskbar-clock {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  min-width: 60px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.taskbar-text {
+  font-size: 13px;
+}
+
+/* Search Bar */
+.taskbar-search {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 6px 12px;
+  backdrop-filter: blur(10px);
+  flex: 1;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  flex: 1;
+  outline: none;
+  padding: 4px 8px;
+}
+
+.search-input:focus-visible {
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+
+.search-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Start Menu */
+.start-menu {
+  position: fixed;
+  bottom: 70px;
+  left: 20px;
+  width: 400px;
+  max-height: 500px;
+  background: rgba(30, 41, 54, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+  overflow: hidden;
+}
+
+.start-menu.show {
+  display: block;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.start-menu-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.user-type {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.start-menu-content {
+  padding: 20px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.menu-section {
+  margin-bottom: 25px;
+}
+
+.menu-section:last-child {
+  margin-bottom: 0;
+}
+
+.menu-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.menu-apps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.menu-app {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.menu-app:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.menu-app-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.menu-app-name {
+  font-size: 11px;
+  color: white;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.menu-icon {
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Notifications Menu */
+.notifications-menu {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 320px;
+  max-height: 400px;
+  background: rgba(30, 41, 54, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  display: none;
+  overflow: hidden;
+}
+
+.notifications-menu.show {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notifications-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notifications-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.clear-notifications {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.clear-notifications:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.notifications-content {
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.no-notifications {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  padding: 20px;
+}
+
+.notification-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.notification-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.notification-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.notification-message {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.3;
+}
+
+.notification-time {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4px;
 }
 
 main {
@@ -174,10 +586,12 @@ main {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding-top: 80px;
+  padding-top: 60px;
+  padding-bottom: 48px;
   position: relative;
   gap: 60px;
   padding-left: 40px;
+  box-sizing: border-box;
 }
 
 .main-logo {
@@ -193,35 +607,6 @@ main {
   width: 300px;
   height: auto;
   filter: grayscale(20%);
-}
-
-.logout-btn {
-  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-  color: white;
-  border: none;
-  padding: 14px 28px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
-  position: fixed;
-  bottom: 50px;
-  right: 30px;
-  z-index: 1000;
-}
-
-.logout-btn:hover {
-  background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
-}
-
-.logout-btn:active {
-  transform: translateY(0);
 }
 
 .horario {
@@ -247,8 +632,8 @@ main {
 }
 
 .app-button {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 16px;
   padding: 20px;
   cursor: pointer;
@@ -261,7 +646,12 @@ main {
   min-height: 80px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-sm);
+}
+
+.app-button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .app-button::before {
@@ -315,6 +705,26 @@ main {
   letter-spacing: 0.5px;
 }
 
+.start-menu-content::-webkit-scrollbar,
+.notifications-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.start-menu-content::-webkit-scrollbar-thumb,
+.notifications-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}
+
+.start-menu-content::-webkit-scrollbar-thumb:hover,
+.notifications-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+}
+
 .esc-info {
   margin-top: 30px;
   padding: 12px 20px;
@@ -332,10 +742,13 @@ main {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.8;
     transform: scale(1);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.02);
@@ -357,4 +770,64 @@ main {
   z-index: 1;
 }
 
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background: rgba(30, 30, 30, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  font-family: 'Segoe UI', sans-serif;
+}
 
+.taskbar-left,
+.taskbar-center,
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.start-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.taskbar-app {
+  padding: 0 12px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.taskbar-app:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.taskbar-clock {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}

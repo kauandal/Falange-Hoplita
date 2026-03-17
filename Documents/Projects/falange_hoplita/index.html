@@ -7,13 +7,76 @@
 
 <body>
   <header>
-    <div>
-      
+    <div class="taskbar-left">
+      <button class="taskbar-btn" id="start-btn" title="Iniciar">
+        <span class="taskbar-icon">⊞</span>
+        <span class="taskbar-text">Iniciar</span>
+      </button>
     </div>
-    <div class="horario">
-      11:30 06 de outubro de 2025
+    <div class="taskbar-center">
+      <div class="taskbar-search">
+        <input type="text" placeholder="Pesquisar aplicativos..." class="search-input">
+        <button class="search-btn">🔍</button>
+      </div>
+    </div>
+    <div class="taskbar-right">
+      <div class="horario">
+        Carregando
+      </div>
+      <button class="taskbar-btn" id="notifications-btn" title="Notificações">
+        <span class="taskbar-icon">🔔</span>
+      </button>
+      <button class="taskbar-btn" id="settings-btn" title="Configurações">
+        <span class="taskbar-icon">⚙️</span>
+      </button>
     </div>
   </header>
+  
+  <!-- Menu Iniciar -->
+  <div class="start-menu" id="start-menu">
+    <div class="start-menu-header">
+      <div class="user-profile">
+        <div class="user-avatar">👤</div>
+        <div class="user-info">
+          <div class="user-name" id="menu-user-name">Carregando...</div>
+          <div class="user-type" id="menu-user-type">...</div>
+        </div>
+      </div>
+    </div>
+    <div class="start-menu-content">
+      <div class="menu-section">
+        <div class="menu-section-title">Aplicativos</div>
+        <div class="menu-apps" id="menu-apps">
+          <!-- Apps serão inseridos dinamicamente -->
+        </div>
+      </div>
+      <div class="menu-section">
+        <div class="menu-section-title">Sistema</div>
+        <div class="menu-items">
+          <button class="menu-item" onclick="logout()">
+            <span class="menu-icon">🚪</span>
+            <span class="menu-text">Sair</span>
+          </button>
+          <button class="menu-item" id="restart-btn">
+            <span class="menu-icon">🔄</span>
+            <span class="menu-text">Reiniciar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Menu de Notificações -->
+  <div class="notifications-menu" id="notifications-menu">
+    <div class="notifications-header">
+      <h3>Notificações</h3>
+      <button class="clear-notifications">Limpar tudo</button>
+    </div>
+    <div class="notifications-content" id="notifications-content">
+      <div class="no-notifications">Nenhuma notificação</div>
+    </div>
+  </div>
+  
   <main>
     <div class="main-logo">
       <img src="ITS.png" alt="Logo" class="main-logo-img">
@@ -21,11 +84,21 @@
     <div class="content">
       <p id="user-type">Carregando...</p>
     </div>
-    <div>
-      <button onclick="logout()" class="logout-btn">Sair do Sistema</button>
-    </div>
   </main>
   <script src="renderer.js"></script>
+  <div class="taskbar">
+    <div class="taskbar-left">
+      <div class="start-btn">🪟</div>
+    </div>
+    <div class="taskbar-center">
+      <!-- Apps abertos ou fixos -->
+    <!--   <div class="taskbar-app">🌐 CRM</div>
+      <div class="taskbar-app">📞 Discador</div> -->
+    </div>
+    <div class="taskbar-right">
+      <div class="taskbar-clock" id="taskbar-clock"></div>
+    </div>
+  </div>
 </body>
 
 </html>

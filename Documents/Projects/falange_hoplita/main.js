@@ -5,6 +5,52 @@ const path = require('path');
 let win;
 let currentUser = null;
 
+function createMainWindow() {
+    const newWin = new BrowserWindow({
+        fullscreen: true,
+        kiosk: true,
+        autoHideMenuBar: true,
+        //   alwaysOnTop: true,
+        //skipTaskbar: true,
+        menuBarVisible: false,
+        icon: path.join(__dirname, 'ITS.png'),
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            devTools: false
+        }
+    });
+
+    // Dentro de app.whenReady() ou nas configurações da janela
+    newWin.webContents.on('context-menu', (e) => e.preventDefault());
+
+    newWin.webContents.on('before-input-event', (event, input) => {
+
+        // bloquear devtools
+        if (input.key === 'F12' || (input.control && input.shift && input.key === 'I')) {
+            event.preventDefault();
+        }
+
+        // bloquear refresh
+        if (input.key === 'F5') {
+            event.preventDefault();
+        }
+
+        // ESC só TI
+        if (input.type === 'keyDown' && input.code === 'Escape') {
+            if (currentUser === 'ti') {
+                app.quit();
+            } else {
+                event.preventDefault();
+            }
+        }
+
+    });
+
+    newWin.loadFile('login.html');
+    return newWin;
+}
+
 // Carregar dados do JSON
 let userData = {};
 try {
@@ -33,55 +79,13 @@ if (!gotTheLock) {
     Menu.setApplicationMenu(null);
 
     app.whenReady().then(() => {
-        win = new BrowserWindow({
-            fullscreen: true,
-            kiosk: true,
-            autoHideMenuBar: true,
-            //   alwaysOnTop: true,
-            skipTaskbar: true,
-            autoHideMenuBar: true,
-            menuBarVisible: false,
-            webPreferences: {
-                nodeIntegration: true,
-                contextIsolation: false,
-                devTools: false
-            }
-        });
-
-        // Dentro de app.whenReady() ou nas configurações da janela
-        win.webContents.on('context-menu', (e) => e.preventDefault());
-
-        win.loadFile('login.html');
+        win = createMainWindow();
 
         // Desabilita atalhos padrão
         globalShortcut.register('CommandOrControl+Q', () => { });
         globalShortcut.register('CommandOrControl+W', () => { });
         globalShortcut.register('Alt+F4', () => { });
-        globalShortcut.register('Ctrl+Alt+Delete', () => { });
         globalShortcut.register('F11', () => { });
-
-        win.webContents.on('before-input-event', (event, input) => {
-
-            // bloquear devtools
-            if (input.key === 'F12' || (input.control && input.shift && input.key === 'I')) {
-                event.preventDefault();
-            }
-
-            // bloquear refresh
-            if (input.key === 'F5') {
-                event.preventDefault();
-            }
-
-            // ESC só TI
-            if (input.type === 'keyDown' && input.code === 'Escape') {
-                if (currentUser === 'ti') {
-                    app.quit();
-                } else {
-                    event.preventDefault();
-                }
-            }
-
-        });
     });
 }
 
@@ -114,7 +118,7 @@ ipcMain.on('login', (event, username, password) => {
         win.loadFile('index.html');
 
         // Enviar informações do usuário e apps para a interface
-        win.webContents.on('did-finish-load', () => {
+        win.webContents.once('did-finish-load', () => {
             win.webContents.send('user-data', {
                 displayName: user.displayName,
                 role: user.role,
@@ -146,11 +150,20 @@ ipcMain.on('launch-app', (event, appPath) => {
 });
 
 ipcMain.on('logout-request', () => {
-    // volta para tela de login
     currentUser = null;
-    win.setKiosk(true);
-    win.setFullScreen(true);
-    win.loadFile('login.html');
+
+    try {
+        if (win && !win.isDestroyed()) {
+            win.destroy();
+        }
+    } catch (e) { }
+
+    win = createMainWindow();
+});
+
+ipcMain.on('restart-system', () => {
+    app.relaunch();
+    app.exit();
 });
 
 app.on('window-all-closed', () => {

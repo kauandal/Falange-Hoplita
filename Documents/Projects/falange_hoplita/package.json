@@ -39,7 +39,7 @@
     ],
     "win": {
       "target": "zip",
-      "icon": "icon.ico"
+      "icon": "ITS_icone.png"
     }
   }
 }

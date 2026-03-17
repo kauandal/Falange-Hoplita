@@ -33,6 +33,7 @@
       height: 200%;
       background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
       animation: rotate 20s linear infinite;
+      pointer-events: none;
     }
 
     @keyframes rotate {
@@ -297,6 +298,23 @@
 
   <script>
     const { ipcRenderer } = require('electron');
+
+    // Garantir foco e digitação sempre que a tela abrir (ex.: após logout)
+    window.addEventListener('focus', () => {
+      const usernameInput = document.getElementById('username');
+      if (usernameInput && document.activeElement === document.body) {
+        usernameInput.focus();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const usernameInput = document.getElementById('username');
+        if (usernameInput) {
+          usernameInput.focus();
+        }
+      }, 150);
+    });
 
     function login() {
       const username = document.getElementById('username').value;
